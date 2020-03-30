@@ -79,7 +79,7 @@ import java.util.Random;
 public class MatrixMultiplication {
 
     public static void main(String[] _args) {
-        int size = 256;
+        int size = 512;
 
         float[] arrayA = new float[size * size];
         float[] arrayB = new float[size * size];
@@ -126,7 +126,7 @@ public class MatrixMultiplication {
 
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (Math.abs(seq[j * size + i] - par[j * size + i]) > 0f) {
+                if (Math.abs(seq[j * size + i] - par[j * size + i]) > 0.1f) {
                     check = false;
                     break;
                 }
@@ -137,12 +137,12 @@ public class MatrixMultiplication {
 
     private static float[] matrixMultiplicationSerial(float[] a, float[] b, float[] c, int size) {
         for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                float sum = 0f;
-                for (int y = 0; y < size; y++) {
-                    sum += a[y * size + i] * b[j * size + y];
+            for  (int j = 0; j < size; j++) {
+                float sum = 0.0f;
+                for (int k = 0; k < size; k++) {
+                    sum += a[(i * size) + k] * b[(k * size) + j];
                 }
-                c[j * size + i] = sum;
+                c[(i * size) + j] = sum;
             }
         }
         return c;
@@ -151,9 +151,7 @@ public class MatrixMultiplication {
     private static float[] initializeInputArrays(float[] input, int size) {
         Random number = new Random();
         for (int i = 0; i < size * size; i++) {
-//            input[i] = number.nextFloat();
-//            input[i] = number.nextFloat();
-            input[i] = 2f;
+            input[i] = number.nextFloat();
         }
         return input;
     }
